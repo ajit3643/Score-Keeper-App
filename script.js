@@ -1,26 +1,12 @@
 let score = 0;
 let wicket = 0;
 const MAX_WICKETS = 10;
-function addOne() {
-  score += 1;
+
+function addScore(run) {
+  score += run;
   rootElement.render(<App />);
 }
-function addTwo() {
-  score += 2;
-  rootElement.render(<App />);
-}
-function addThree() {
-  score += 3;
-  rootElement.render(<App />);
-}
-function addFour() {
-  score += 4;
-  rootElement.render(<App />);
-}
-function addSix() {
-  score += 6;
-  rootElement.render(<App />);
-}
+
 function addWicket() {
   wicket += 1;
   rootElement.render(<App />);
@@ -43,11 +29,11 @@ const App = () => (
     <p>Rohit Sharma*</p>
     <div>
       <span>Runs: </span>
-      <button onClick={addOne}>1</button>
-      <button onClick={addTwo}>2</button>
-      <button onClick={addThree}>3</button>
-      <button onClick={addFour}>4</button>
-      <button onClick={addSix}>6</button>
+      <button onClick={() => addScore(1)}>1</button>
+      <button onClick={() => addScore(2)}>2</button>
+      <button onClick={() => addScore(3)}>3</button>
+      <button onClick={() => addScore(4)}>4</button>
+      <button onClick={() => addScore(6)}>6</button>
       <button onClick={addWicket}>Wicket</button>
     </div>
     <h2>Australia</h2>
