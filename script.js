@@ -8,8 +8,10 @@ function addScore(run) {
 }
 
 function addWicket() {
-  wicket += 1;
-  rootElement.render(<App />);
+  if (wicket < 10) {
+    wicket += 1;
+    rootElement.render(<App />);
+  }
 }
 const App = () => (
   <>
