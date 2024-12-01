@@ -3,8 +3,10 @@ let wicket = 0;
 const MAX_WICKETS = 10;
 
 function addScore(run) {
-  score += run;
-  rootElement.render(<App />);
+  if (wicket < 10) {
+    score += run;
+    rootElement.render(<App />);
+  }
 }
 
 function addWicket() {
