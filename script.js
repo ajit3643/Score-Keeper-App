@@ -29,6 +29,19 @@ const ScoreButtons = () => (
     <button onClick={addWicket}>Wicket</button>
   </div>
 );
+
+const Result = () => (
+  <div>
+    {ballWise.map((res, index) => (
+      <>
+        {index % 6 === 0 ? <br /> : null}
+        <span key={index}>{res === 0 ? <strong>.</strong> : res}</span>
+        &nbsp;&nbsp;
+      </>
+    ))}
+  </div>
+);
+
 const App = () => (
   <>
     <h1>India vs Australia, 2nd Test - Live Cricket Score, Commentary</h1>
@@ -46,6 +59,7 @@ const App = () => (
     <p>Virat Kohli*</p>
     <p>Rohit Sharma*</p>
     <ScoreButtons />
+    <Result />
     <h2>Australia</h2>
     <img
       src="https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/Flag_of_Australia.svg/1200px-Flag_of_Australia.svg.png?20190118170740"
