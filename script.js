@@ -1,5 +1,5 @@
-var score = 0;
-var wicket = 0;
+let score = 0;
+let wicket = 0;
 let ballWiseRes = [];
 let hit = 0;
 let inputRef = React.createRef();
