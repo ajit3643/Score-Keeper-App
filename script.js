@@ -1,21 +1,16 @@
 let score = 0;
 let wicket = 0;
 let ballWise = [];
+let hit = 0;
 
 function addScore(run) {
-  ballWise.push(run);
-  if (wicket < 10) {
-    score += run;
-    rootElement.render(<App />);
-  }
+  hit = run;
+  rootElement.render(<App />);
 }
 
 function addWicket() {
-  ballWise.push("W");
-  if (wicket < 10) {
-    wicket += 1;
-    rootElement.render(<App />);
-  }
+  hit = "W";
+  rootElement.render(<App />);
 }
 const ScoreButtons = () => (
   <div>
@@ -42,6 +37,17 @@ const Result = () => (
   </div>
 );
 
+function handleSubmit(event) {
+  event.preventDefault();
+  ballWise.unshift(hit);
+}
+const Form = () => (
+  <form onSubmit={handleSubmit}>
+    <input value={hit} />
+    <input />
+    <button>Submit</button>
+  </form>
+);
 const App = () => (
   <>
     <h1>India vs Australia, 2nd Test - Live Cricket Score, Commentary</h1>
@@ -59,7 +65,10 @@ const App = () => (
     <p>Virat Kohli*</p>
     <p>Rohit Sharma*</p>
     <ScoreButtons />
+    <br />
     <Result />
+    <Form />
+    <hr />
     <h2>Australia</h2>
     <img
       src="https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/Flag_of_Australia.svg/1200px-Flag_of_Australia.svg.png?20190118170740"
