@@ -1,84 +1,83 @@
-let score = 0;
-let wicket = 0;
-let ballWise = [];
+var score = 0;
+var wicket = 0;
+let ballWiseRes = [];
 let hit = 0;
+let inputRef = React.createRef();
 
-function addScore(run) {
-  hit = run;
-  rootElement.render(<App />);
+function addScore(num) {
+  hit = num;
+  renderRoot();
 }
 
-function addWicket() {
-  hit = "W";
-  rootElement.render(<App />);
+function wicketDown() {
+  hit = "Out";
+  renderRoot();
 }
+
+function handleSubmit(event) {
+  event.preventDefault();
+
+  if (hit == "Out") {
+    wicket += 1;
+  } else {
+    score += hit;
+  }
+
+  ballWiseRes.unshift(
+    <span>{`${hit == 0 ? "DOT" : hit} , ${inputRef.current.value}`}</span>
+  );
+
+  hit = 0;
+  inputRef.current.value = "";
+
+  renderRoot();
+  console.log(inputRef.current.value);
+}
+
+const Form = () => (
+  <form onSubmit={handleSubmit}>
+    <input value={hit} />
+    <input placeholder="Add a comment" ref={inputRef} />
+    <button> Submit </button>
+  </form>
+);
+
 const ScoreButtons = () => (
   <div>
-    <span>Runs: </span>
     <button onClick={() => addScore(0)}>0</button>
     <button onClick={() => addScore(1)}>1</button>
     <button onClick={() => addScore(2)}>2</button>
     <button onClick={() => addScore(3)}>3</button>
     <button onClick={() => addScore(4)}>4</button>
+    <button onClick={() => addScore(5)}>5</button>
     <button onClick={() => addScore(6)}>6</button>
-    <button onClick={addWicket}>Wicket</button>
+    <button onClick={wicketDown}>Wicket</button>
   </div>
 );
 
-const Result = () => (
-  <div>
-    {ballWise.map((res, index) => (
-      <>
-        {index % 6 === 0 ? <br /> : null}
-        <span key={index}>{res === 0 ? <strong>.</strong> : res}</span>
-        &nbsp;&nbsp;
-      </>
-    ))}
-  </div>
-);
-
-function handleSubmit(event) {
-  event.preventDefault();
-  ballWise.unshift(hit);
-}
-const Form = () => (
-  <form onSubmit={handleSubmit}>
-    <input value={hit} />
-    <input />
-    <button>Submit</button>
-  </form>
-);
 const App = () => (
   <>
-    <h1>India vs Australia, 2nd Test - Live Cricket Score, Commentary</h1>
-    <h2>India</h2>
-    <img
-      src="https://seeklogo.com/images/I/india-flag-logo-3522C6780F-seeklogo.com.png"
-      alt="India"
-      height="100"
-      width="150"
-    />
+    <h1> Score Keeper App </h1>
     <h2>
-      India: {score}/{wicket}
+      {" "}
+      Score: {score} / {wicket}
     </h2>
-    <h3>Batter: R&nbsp;B&nbsp;4s&nbsp;6s&nbsp;SR</h3>
-    <p>Virat Kohli*</p>
-    <p>Rohit Sharma*</p>
     <ScoreButtons />
     <br />
-    <Result />
+    <br />
     <Form />
     <hr />
-    <h2>Australia</h2>
-    <img
-      src="https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/Flag_of_Australia.svg/1200px-Flag_of_Australia.svg.png?20190118170740"
-      alt="Australia"
-      height="100"
-      width="150"
-    />
-    <h3>Bowler:&nbsp;O&nbsp;M&nbsp;R&nbsp;W&nbsp;ECO</h3>
-    <p>Starc: </p>
+    <div>
+      {ballWiseRes.map((res, index) => (
+        <p key={index + 1}>{res}</p>
+      ))}
+    </div>
   </>
 );
+
 const rootElement = ReactDOM.createRoot(document.getElementById("root"));
-rootElement.render(<App />);
+function renderRoot() {
+  rootElement.render(<App />);
+}
+
+renderRoot();
